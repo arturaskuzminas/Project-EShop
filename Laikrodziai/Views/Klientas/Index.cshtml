@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Laikrodziai.Models.KlientasModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+@foreach(var item in Model){
+    <h4>@item.ToString()</h4>
+}
