@@ -29,7 +29,10 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
+<<<<<<< HEAD
 [Oo]ut/
+=======
+>>>>>>> 36f9e9de6fed3ad7ddc8812fe305dd170d1894a0
 [Ll]og/
 [Ll]ogs/
 
