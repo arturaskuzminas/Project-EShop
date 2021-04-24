@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using HotChocolate.Utilities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -107,7 +106,6 @@ namespace MyShop.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            Console.WriteLine(Cities + new string('-', 100));
             returnUrl = returnUrl ?? Url.Content("~/");
             var role = _roleManager.FindByIdAsync(Input.Role).Result;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -118,7 +116,7 @@ namespace MyShop.Areas.Identity.Pages.Account
                                                  FirstName = Input.FirstName,
                                                  LastName = Input.LastName,
                                                  Address = Input.Address,
-                                                 CityID = _context.Cities.Where(x => x.ID == Input.City).First().ID
+                                                 CityID = _context.Cities.Where(x => x.ID == Input.City).FirstOrDefault().ID
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

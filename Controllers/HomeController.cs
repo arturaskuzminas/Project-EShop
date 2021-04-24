@@ -23,12 +23,6 @@ namespace MyShop.Controllers
             return View();
         }
 
-        public IActionResult ApieProjekta()
-        {
-            return View();
-        }
-
-
         public IActionResult Privacy()
         {
             return View();

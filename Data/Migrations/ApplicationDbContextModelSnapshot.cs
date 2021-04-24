@@ -249,6 +249,7 @@ namespace MyShop.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PictureLink")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
