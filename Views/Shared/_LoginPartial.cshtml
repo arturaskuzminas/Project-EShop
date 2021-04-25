@@ -1,7 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-
+<style>
+    .modal-backdrop {
+        z-index: 1020;
+    }
+</style>
 <!------------------------------------ Jeigu naudotojas yra adminas tada jis matys tokį navbar'ą ------------------------------------------>
 @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admin")))
 {

@@ -53,7 +53,7 @@ namespace MyShop.Areas.Identity.Pages.Account
             [Display(Name = "Slaptažodis")]
             public string Password { get; set; }
 
-            [Display(Name = "Prisiminti mane?")]
+            [Display(Name = "Prisiminti mane")]
             public bool RememberMe { get; set; }
         }
 
