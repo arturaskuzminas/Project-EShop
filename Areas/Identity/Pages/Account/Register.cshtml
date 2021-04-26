@@ -62,8 +62,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="Input.Role">Rolė - tegul būna čia pažaidimui. Bus paslėptas</label>
+            <div class="form-group d-none">
                 <select asp-for="Input.Role" class="form-control" asp-items='new SelectList(roles,"Id","Name")'>
                 </select>
             </div>
