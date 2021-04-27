@@ -29,6 +29,9 @@ namespace MyShop.Models
         [Display(Name = "Dydis")]
         public string Size { get; set; }
 
+        [Display(Name = "Lytis")]
+        public string ForSex { get; set; }
+
         [Display(Name = "Spalva")]
         public string Color { get; set; }
 

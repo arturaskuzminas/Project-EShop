@@ -25,13 +25,17 @@ namespace MyShop.Controllers
         public async Task<IActionResult> Index()
         {
             List<ProductModel> products = await _context.Products.ToListAsync();
-            List<ProductModel> menWatches = new List<ProductModel>();
+            List<ProductModel> collection = new List<ProductModel>();
 
-            menWatches.Add(products.Where(p => p.Title.Contains("Night")).First());
-            menWatches.Add(products.Where(p => p.Title.Contains("Ivory")).First());
-            menWatches.Add(products.Where(p => p.Title.Contains("Lewis")).First());
+            collection.Add(products.Where(p => p.Title.Contains("Night")).First());
+            collection.Add(products.Where(p => p.Title.Contains("Ivory")).First());
+            collection.Add(products.Where(p => p.Title.Contains("Lewis")).First());
 
-            return View(menWatches);
+            collection.Add(products.Where(p => p.Title.Contains("Nimbo")).First());
+            collection.Add(products.Where(p => p.Title.Contains("Mangana")).First());
+            collection.Add(products.Where(p => p.Title.Contains("Pheonix")).First());
+
+            return View(collection);
         }
 
         public IActionResult Privacy()
