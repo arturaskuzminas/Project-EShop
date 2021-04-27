@@ -19,6 +19,7 @@
             <a class="dropdown-item" asp-controller="City" asp-action="Index" title="Manage">Miestai</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="Index">Rolės</a>
+            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/PersonalData" title="Manage">Mano anketa</a>
         </div>
     </li>
     <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -28,14 +29,15 @@
 // ------------------------------- Jeigu naudotojas yra prisijungęs ir yra paprastas naudotojas tada jis matys tokį navbarą --------------------------------------------
 else if (SignInManager.IsSignedIn(User))
 {
-    @*<li class="dropdown">
+    <li class="dropdown">
         <a class="btn btn-outline-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Nustatymai
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" asp-controller="Role" asp-action="ListUsers" title="Manage">Mano anketa</a>
+            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/PersonalData" title="Manage">Mano anketa</a>
         </div>
-    </li>*@
+    </li>
+
     <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
         <button type="submit" class="btn btn-outline-light btn-md my-2 my-sm-0 ml-3">Atsijungti</button>
     </form>

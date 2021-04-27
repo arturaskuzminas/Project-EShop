@@ -30,6 +30,22 @@ namespace MyShop.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            [Display(Name = "Vardas")]
+            [Required(ErrorMessage = "Laukas 'Vardas' yra privalomas")]
+            public string FirstName { get; set; }
+
+            [Display(Name = "Pavardė")]
+            [Required(ErrorMessage = "Laukas 'Pavardė' yra privalomas")]
+            public string LastName { get; set; }
+
+            [Display(Name = "Adresas")]
+            [Required(ErrorMessage = "Laukas 'Adresas' yra privalomas")]
+            public string Address { get; set; }
+
+            [Display(Name = "Miestas")]
+            [Required(ErrorMessage = "Laukas 'Miestas' yra privalomas")]
+            public string CityID { get; set; }
+
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -37,13 +53,20 @@ namespace MyShop.Areas.Identity.Pages.Account.Manage
 
         private async Task LoadAsync(ApplicationUser user)
         {
-            var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
-            Username = userName;
+            user = await _userManager.GetUserAsync(User);
+            var userName = user.UserName;
+            var phoneNumber = user.PhoneNumber;
+            var firstName = user.FirstName;
+            var lastName = user.LastName;
+            var address = user.Address;
+            var cityID = user.CityID;
 
             Input = new InputModel
             {
+                FirstName = firstName,
+                LastName = lastName,
+                Address = address,
+                CityID = cityID,
                 PhoneNumber = phoneNumber
             };
         }
@@ -53,7 +76,7 @@ namespace MyShop.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Nepavyko užkrauti naudotojo su ID '{_userManager.GetUserId(User)}'.");
             }
 
             await LoadAsync(user);
@@ -65,7 +88,7 @@ namespace MyShop.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Nepavyko užkrauti naudotojo su ID '{_userManager.GetUserId(User)}'.");
             }
 
             if (!ModelState.IsValid)
@@ -80,13 +103,13 @@ namespace MyShop.Areas.Identity.Pages.Account.Manage
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
+                    StatusMessage = "Nenumatyta klaida bandant nustatyti telefono numerį.";
                     return RedirectToPage();
                 }
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Jūsų anketa buvo atnaujinta sėkmingai !";
             return RedirectToPage();
         }
     }
