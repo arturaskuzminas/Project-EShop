@@ -11,16 +11,9 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/navbar.css" />
     <link rel="stylesheet" href="~/css/footer.css" />
-    <style>
-        body {
-            background-image: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(236,232,252,1) 0%);
-        }
-    </style>
     <!--Pabaiga-->
-    <!--------------------------------------------------------------------------------------------------------------------------------------------------->
 </head>
-<body> 
-    <!------------------------------------------------------------------------------------------------------------------------------------------------->
+<body style="background-image: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(236,232,252,1) 0%);"> 
     <!------------------------------------- Navbar'o kodas ---------------------------------------------------------->
     <header>
         <nav class="navbar fixed-top navbar-dark bg-dark">
@@ -50,7 +43,6 @@
             </div>
         </nav>
     </header>
-    <!--------------------------------------------------------------------------------------------------------------------------------------------------->
     <!-------------------------------------- Pagrindinė puslapio dalis ------------------------------------------------------>
     <div class="container">
         <main role="main" class="pb-3">
@@ -61,7 +53,6 @@
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </main>
     </div>
-    <!--------------------------------------------------------------------------------------------------------------------------------------------------->
     <!---------------------- Footerio kodas -------------------------->
     <div class="footer-dark">
         <footer>
@@ -91,13 +82,11 @@
             </div>
         </footer>
     </div>
-    <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     <!---------------------- Javascript failai sukūriami wwwroot/js/ folderyje tada čia įkeliama nuoroda į juos. Visada dėti į pabaigą, nes svarbi tvarka ------------------>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <!--Pabaiga-->
-    <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     @if (IsSectionDefined("Scripts"))
     {
         @RenderSection("Scripts", required: true)
