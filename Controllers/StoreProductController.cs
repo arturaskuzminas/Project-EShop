@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
-using MyShop.Models;
+using System.Threading.Tasks;
 
 namespace MyShop.Controllers
 {
+    [AllowAnonymous]
     public class StoreProductController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -33,6 +30,12 @@ namespace MyShop.Controllers
                 return NotFound();
             }
             return View(productModel);
+        }
+
+        // GET: StoreProducts
+        public async Task<IActionResult> Products()
+        {
+            return View(await _context.Products.ToListAsync());
         }
     }
 }
