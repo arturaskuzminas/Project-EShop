@@ -13,7 +13,7 @@
 
 <!-------------------------------------------------------------------------------------------------------------------------->
 <div class="container pt-5 text-right">
-    <div class="row no-gutters" style="background: #eee; border:solid 1px">
+    <div class="row no-gutters" style="background-color: white; border:solid 1px">
         <div class="col offset-md-">
             <img src="~/images/hero-mainPage.jpg" height="400" />
         </div>
@@ -34,7 +34,7 @@
                 <div class="card-body align-items-sm-center">
                     <h6 class="text-danger"><strong>Naujiena !</strong></h6>
                     <h5 class="card-title">Laikrodis "@item.Title"</h5>
-                    <a asp-area="Identity" asp-page="/UserProduct" class="btn btn-outline-dark align-content-center">Detaliau</a>
+                    <a asp-action="Product" asp-controller="StoreProduct" asp-route-id="@item.ID" class="btn btn-outline-dark align-content-center">Detaliau</a>
                 </div>
             </div>
         }
@@ -42,7 +42,7 @@
 </div> <br />
 <!-------------------------------------------------------------------------------------------------------------------------->
 <div class="container pt-5 text-right">
-    <div class="row no-gutters" style="background: #eee; border:solid 1px">
+    <div class="row no-gutters" style="background-color: white; border: solid 1px">
         <div class="col offset-md-">
             <img src="~/images/women_mainPage.jpg" height="400" />
         </div>
@@ -63,7 +63,7 @@
                 <div class="card-body align-items-sm-center">
                     <h6 class="text-danger"><strong>Naujiena !</strong></h6>
                     <h5 class="card-title">Laikrodis "@item.Title"</h5>
-                    <a asp-area="Identity" asp-page="/UserProduct" class="btn btn-outline-dark align-content-center">Į krepšelį</a>
+                    <a asp-action="Product" asp-controller="StoreProduct" asp-route-id="@item.ID" class="btn btn-outline-dark align-content-center">Į krepšelį</a>
                 </div>
             </div>
         }
