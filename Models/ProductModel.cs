@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +20,7 @@ namespace MyShop.Models
 
         [Display(Name = "Kaina")]
         [Required(ErrorMessage = "Laukas 'Kaina' yra privalomas")]
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }
 
         [Display(Name = "Brand'as")]
@@ -35,6 +37,7 @@ namespace MyShop.Models
         public int StockCount { get; set; }
 
         [Display(Name = "Nuotr. link'as (PC)")]
+        [Required]
         public string PictureLink { get; set; }
     }
 }

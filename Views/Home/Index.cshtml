@@ -1,6 +1,8 @@
-﻿@{
+﻿@model IEnumerable<MyShop.Models.ProductModel>
+@{
     ViewData["Title"] = "Pagrindinis";
 }
+
 <style>
     .card-img-top {
         width: 100%;
@@ -8,6 +10,8 @@
         object-fit: cover;
     }
 </style>
+
+<!-------------------------------------------------------------------------------------------------------------------------->
 <div class="container pt-5 text-right">
     <div class="row no-gutters" style="background: #eee; border:solid 1px">
         <div class="col offset-md-">
@@ -19,40 +23,31 @@
     </div>
 </div>
 <br />
+<!-------------------------------------------------------------------------------------------------------------------------->
 <div class="container card-group">
-    <div class="card text-center" style="width: 18rem;">
-        <img class="card-img-top" src="~/images/laikrodis1.jpg" alt="Card image cap">
-        <div class="card-body align-items-sm-center">
-            <h5 class="card-title">Laikrodis "Night"</h5>
-            <a asp-area="Identity" asp-page="/UserProduct" class="btn btn-success align-content-center">Į krepšelį</a>
+    @foreach (var item in Model)
+    {
+        <div class="card text-center" style="width: 18rem;">
+            <img class="card-img-top" src=@item.PictureLink alt="Card image cap">
+            <div class="card-body align-items-sm-center">
+                <h5 class="card-title">Laikrodis "@item.Title"</h5>
+                <a asp-area="Identity" asp-page="/UserProduct" class="btn btn-success align-content-center">Į krepšelį</a>
+            </div>
         </div>
-    </div>
-    <div class="card text-center" style="width: 18rem;">
-        <img class="card-img-top" src="~/images/laikrodis2.jpg" alt="Card image cap">
-        <div class="card-body align-items-sm-center">
-            <h5 class="card-title">Laikrodis "Ivory"</h5>
-            <a asp-area="Identity" asp-page="/UserProduct"  class="btn btn-success align-content-center">Į krepšelį</a>
-        </div>
-    </div>
-    <div class="card text-center" style="width: 18rem;">
-        <img class="card-img-top" src="~/images/laikrodis3.jpg" height="245" alt="Card image cap">
-        <div class="card-body align-items-sm-center">
-            <h5 class="card-title">Laikrodis "Lewis"</h5>
-            <a asp-area="Identity" asp-page="/UserProduct"  class="btn btn-success align-content-center">Į krepšelį</a>
-        </div>
-    </div>
+    }
 </div>
-
+<!-------------------------------------------------------------------------------------------------------------------------->
 <div class="container pt-5 text-right">
     <div class="row no-gutters" style="background: #eee; border:solid 1px">
         <div class="col offset-md-">
-            <img src="~/images/women_mainPage.jpg"  height="400" />
+            <img src="~/images/women_mainPage.jpg" height="400" />
         </div>
         <div class="col text-center align-self-center">
             <h2>Moteriški laikrodžiai</h2>
         </div>
     </div>
 </div>
+<!-------------------------------------------------------------------------------------------------------------------------->
 <br />
 <br />
 <br />
