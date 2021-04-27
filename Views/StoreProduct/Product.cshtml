@@ -1,0 +1,65 @@
+﻿@model MyShop.Models.ProductModel
+
+@{
+    ViewData["Title"] = "Product";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ForSex)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StockCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PictureLink)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.ForSex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.StockCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.PictureLink)
+            </td>
+        </tr>
+    </tbody>
+</table>
