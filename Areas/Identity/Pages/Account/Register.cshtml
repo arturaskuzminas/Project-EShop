@@ -46,13 +46,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group">
+                        <div class="form-group" style="color:white">
                             <label asp-for="Input.Password"></label>
                             <input asp-for="Input.Password" class="form-control" />
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
+                        <div class="form-group" style="color:white">
                             <label asp-for="Input.ConfirmPassword"></label>
                             <input asp-for="Input.ConfirmPassword" class="form-control" />
                         </div>
@@ -62,13 +62,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label asp-for="Input.Address"></label>
+                                <label asp-for="Input.Address" style="color:white"></label>
                                 <input asp-for="Input.Address" class="form-control" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label asp-for="Input.City"></label>
+                                <label asp-for="Input.City" style="color:white"></label>
                                 @Html.DropDownListFor(model => model.Input.City, Model.Cities, "--------------", new { @class = "form-control" })
                             </div>
                         </div>

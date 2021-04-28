@@ -20,8 +20,8 @@
             <div class="container-fluid">
                 <div id="mySidenav" class="sidenav">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <a href="#">Vyriški laikrodžiai</a>
-                    <a href="#">Moteriški laikrodžiai</a>
+                    <a asp-page="/Category" asp-area="Identity">Vyriški laikrodžiai</a>
+                    <a asp-page="/Category" asp-area="Identity">Moteriški laikrodžiai</a>
                 </div>
                 <span style="font-size:20px;cursor:pointer;color:#fff" onclick="openNav()">&#9776; Katalogas</span>
 
@@ -65,7 +65,6 @@
                         <ul>
                             <li><a asp-controller="Home" asp-action="About">Projektą</a></li>
                             <li><a asp-controller="Home" asp-action="Komanda">Komandą</a></li>
-                            <li><a asp-controller="Home" asp-action="Privacy">privacy</a></li>
                         </ul>
                     </div>
                     <div class="col-sm-6 col-md-3 item">
