@@ -5,71 +5,89 @@
     var roles = (List<IdentityRole>)ViewData["roles"];
 }
 
-<h1>@ViewData["Title"]</h1>
+<style>
+    #grad {
+        background: rgb(2,5,25);
+        background: linear-gradient(0deg, rgba(2,5,25,1) 0%, rgba(89,89,148,1) 39%, rgba(255,255,255,1) 100%);
+        box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    }
+</style>
 
-<form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-    <hr />
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="Input.FirstName"></label>
-                <input asp-for="Input.FirstName" class="form-control" />
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="Input.LastName"></label>
-                <input asp-for="Input.LastName" class="form-control" />
-            </div>
+<div class="row justify-content-center">
+    <h1>@ViewData["Title"]</h1>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-5 box-shadow" id="grad">
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Input.FirstName"></label>
+                            <input asp-for="Input.FirstName" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Input.LastName"></label>
+                            <input asp-for="Input.LastName" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Input.Email"></label>
+                            <input asp-for="Input.Email" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Input.Password"></label>
+                            <input asp-for="Input.Password" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Input.ConfirmPassword"></label>
+                            <input asp-for="Input.ConfirmPassword" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Input.Address"></label>
+                                <input asp-for="Input.Address" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Input.City"></label>
+                                @Html.DropDownListFor(model => model.Input.City, Model.Cities, "--------------", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group d-none">
+                                <select asp-for="Input.Role" class="form-control" asp-items='new SelectList(roles,"Id","Name")'>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <button type="submit" class="btn btn-primary">Registruotis</button>
+                </div>
+                <br />
+            </form>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="Input.Address"></label>
-                <input asp-for="Input.Address" class="form-control" />
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="Input.City"></label>
-                @Html.DropDownListFor(model => model.Input.City, Model.Cities, "--------------", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group d-none">
-                <select asp-for="Input.Role" class="form-control" asp-items='new SelectList(roles,"Id","Name")'>
-                </select>
-            </div>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Registruotis</button>
-</form>
+</div>
 @*<div class="col-md-6 col-md-offset-2">
         <section>
             <h4>Use another service to register.</h4>

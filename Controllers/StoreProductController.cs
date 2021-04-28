@@ -41,7 +41,7 @@ namespace MyShop.Controllers
         {
             IEnumerable<ProductModel> results = await _context.Products.ToListAsync();
 
-            if (string.IsNullOrEmpty(id) || id.Length < 3)
+            if (string.IsNullOrEmpty(id) || id.Length < 2)
             {
                 ViewBag.searchStr = "incorrect";
                 return View();

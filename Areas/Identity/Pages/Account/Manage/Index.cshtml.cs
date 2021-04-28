@@ -47,33 +47,14 @@ namespace MyShop.Areas.Identity.Pages.Account.Manage
             public string CityID { get; set; }
 
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Telfono numeris")]
+            [Required(ErrorMessage = "Laukas 'Telefono numeris' yra privalomas")]
             public string PhoneNumber { get; set; }
-        }
-
-        private async Task LoadAsync(ApplicationUser user)
-        {
-            user = await _userManager.GetUserAsync(User);
-            var userName = user.UserName;
-            var phoneNumber = user.PhoneNumber;
-            var firstName = user.FirstName;
-            var lastName = user.LastName;
-            var address = user.Address;
-            var cityID = user.CityID;
-
-            Input = new InputModel
-            {
-                FirstName = firstName,
-                LastName = lastName,
-                Address = address,
-                CityID = cityID,
-                PhoneNumber = phoneNumber
-            };
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            ApplicationUser user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Nepavyko užkrauti naudotojo su ID '{_userManager.GetUserId(User)}'.");
@@ -83,34 +64,52 @@ namespace MyShop.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        private async Task LoadAsync(ApplicationUser user)
+        {
+            user = await _userManager.GetUserAsync(User);
+
+            Input = new InputModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Address = user.Address,
+                CityID = user.CityID,
+                PhoneNumber = user.PhoneNumber
+            };
+        }
+
+
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 return NotFound($"Nepavyko užkrauti naudotojo su ID '{_userManager.GetUserId(User)}'.");
             }
-
-            if (!ModelState.IsValid)
+            else
             {
-                await LoadAsync(user);
-                return Page();
-            }
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+                user.Address = Input.Address;
+                user.CityID = Input.CityID;
+                user.PhoneNumber = Input.PhoneNumber;
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
-            {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
+                var result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
                 {
-                    StatusMessage = "Nenumatyta klaida bandant nustatyti telefono numerį.";
+                    StatusMessage = "Jūsų anketa buvo atnaujinta sėkmingai !";
                     return RedirectToPage();
                 }
-            }
 
-            await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Jūsų anketa buvo atnaujinta sėkmingai !";
-            return RedirectToPage();
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return RedirectToPage();
+            }
         }
     }
 }
