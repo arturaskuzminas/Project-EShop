@@ -7,20 +7,22 @@
 
 @if (ViewBag.searchStr != "incorrect")
 {
-    <div class="container card-group">
-        @foreach (var item in Model)
-        {
+    <div class="container card-group ">
+        <div class="row">
+            @foreach (var item in Model)
             {
-                <div class="card text-center" style="width: 18rem;">
-                    <img class="card-img-top" src=@item.PictureLink alt="Card image cap">
-                    <div class="card-body align-items-sm-center">
-                        <h6 class="text-danger"><strong>Naujiena !</strong></h6>
-                        <h5 class="card-title">Laikrodis "@item.Title"</h5>
-                        <a asp-action="Product" asp-controller="StoreProduct" asp-route-id="@item.ID" class="btn btn-outline-dark align-content-center">Detaliau</a>
+                <div class="col">
+                    <div class="card text-center h-100" style="width: 18rem;">
+                        <img class="card-img-top" src=@item.PictureLink alt="Card image cap">
+                        <div class="card-body align-items-sm-center">
+                            <h6 class="text-danger"><strong>Naujiena !</strong></h6>
+                            <h5 class="card-title">Laikrodis "@item.Title"</h5>
+                            <a asp-action="Product" asp-controller="StoreProduct" asp-route-id="@item.ID" class="btn btn-outline-dark align-content-center">Detaliau</a>
+                        </div>
                     </div>
                 </div>
             }
-        }
+        </div>
     </div>
 }
 else
