@@ -1,0 +1,6 @@
+﻿@model IEnumerable<MyShop.Models.CategoryModel>
+
+@foreach (var item in Model)
+{
+    <a asp-controller="StoreProduct" asp-action="CategoryProducts" asp-route-id=@item.Title>@item.Title</a>
+}

@@ -51,5 +51,25 @@ namespace MyShop.Controllers
                 return View(results);
             }
         }
+
+        // GET: CategoryProducts
+        [HttpGet]
+        public async Task<IActionResult> CategoryProducts(string id)
+        {
+            IEnumerable<ProductModel> products = await _context.Products.ToListAsync();
+            int categoryID = _context.Categories.Where(n => n.Title == id).First().ID;
+
+            if (string.IsNullOrEmpty(id))
+            {
+                ViewBag.searchStr = "incorrect";
+                return View();
+            }
+            else
+            {
+                products = products.Where(s => s.CategoryID == categoryID);
+                ViewBag.CategoryName = id;
+                return View(products);
+            }
+        }
     }
 }

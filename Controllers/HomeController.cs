@@ -21,7 +21,7 @@ namespace MyShop.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<dynamic> Index()
         {
             List<ProductModel> products = await _context.Products.ToListAsync();
             List<ProductModel> collection = new List<ProductModel>();
