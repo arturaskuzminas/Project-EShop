@@ -43,8 +43,8 @@ namespace MyShop.Areas.Identity.Pages.Account.Manage
             public string NewPassword { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+            [Display(Name = "Patvirtinkite naują slaptažodį")]
+            [Compare("NewPassword", ErrorMessage = "Naujas slaptažodis ir naujo slaptažodžio patvirtinimas nesutampa.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -89,8 +89,8 @@ namespace MyShop.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+            _logger.LogInformation("Naudotojas pakeitė slaptažodį sėkmingai.");
+            StatusMessage = "Slaptažodis atnaujintas sėkmingai !";
 
             return RedirectToPage();
         }

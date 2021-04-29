@@ -36,41 +36,48 @@
             <th>
                 @Html.DisplayNameFor(model => model.PictureLink)
             </th>
-            <th style="width:14%"></th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryID)
+            </th>
+            <th style="width:8%"></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Brand)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Size)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StockCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ForSex)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PictureLink)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Redaguoti</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Ištrinti</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StockCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ForSex)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PictureLink)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryID)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Redaguoti</a>
+                    <a asp-action="Delete" asp-route-id="@item.ID">Ištrinti</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

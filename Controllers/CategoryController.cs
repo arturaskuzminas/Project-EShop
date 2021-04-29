@@ -1,56 +1,55 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
 using MyShop.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MyShop.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class ProductController : Controller
+    public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ProductController(ApplicationDbContext context)
+        public CategoryController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Product
+        // GET: Category
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+            return View(await _context.CategoryModel.ToListAsync());
         }
 
-        // GET: Product/Create
+        // GET: Category/Create
         public IActionResult Create()
         {
-            ProductModel model = new ProductModel();
-            _ = PopulateCategoryAsync(model);
-            return View(model);
+            return View();
         }
 
-        // POST: Product/Create
+        // POST: Category/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,Price,Brand,Size,Color,StockCount,PictureLink,ForSex,CategoryID")] ProductModel productModel)
+        public async Task<IActionResult> Create([Bind("ID,Title")] CategoryModel categoryModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(productModel);
+                _context.Add(categoryModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(productModel);
+            return View(categoryModel);
         }
 
-        // GET: Product/Edit/5
+        // GET: Category/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -58,23 +57,22 @@ namespace MyShop.Controllers
                 return NotFound();
             }
 
-            var productModel = await _context.Products.FindAsync(id);
-            if (productModel == null)
+            var categoryModel = await _context.CategoryModel.FindAsync(id);
+            if (categoryModel == null)
             {
                 return NotFound();
             }
-            _ = PopulateCategoryAsync(productModel);
-            return View(productModel);
+            return View(categoryModel);
         }
 
-        // POST: Product/Edit/5
+        // POST: Category/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Price,Brand,Size,Color,StockCount,PictureLink,ForSex,CategoryID")] ProductModel productModel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title")] CategoryModel categoryModel)
         {
-            if (id != productModel.ID)
+            if (id != categoryModel.ID)
             {
                 return NotFound();
             }
@@ -83,12 +81,12 @@ namespace MyShop.Controllers
             {
                 try
                 {
-                    _context.Update(productModel);
+                    _context.Update(categoryModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductModelExists(productModel.ID))
+                    if (!CategoryModelExists(categoryModel.ID))
                     {
                         return NotFound();
                     }
@@ -99,10 +97,10 @@ namespace MyShop.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(productModel);
+            return View(categoryModel);
         }
 
-        // GET: Product/Delete/5
+        // GET: Category/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -110,36 +108,30 @@ namespace MyShop.Controllers
                 return NotFound();
             }
 
-            var productModel = await _context.Products
+            var categoryModel = await _context.CategoryModel
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (productModel == null)
+            if (categoryModel == null)
             {
                 return NotFound();
             }
 
-            return View(productModel);
+            return View(categoryModel);
         }
 
-        // POST: Product/Delete/5
+        // POST: Category/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var productModel = await _context.Products.FindAsync(id);
-            _context.Products.Remove(productModel);
+            var categoryModel = await _context.CategoryModel.FindAsync(id);
+            _context.CategoryModel.Remove(categoryModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductModelExists(int id)
+        private bool CategoryModelExists(int id)
         {
-            return _context.Products.Any(e => e.ID == id);
-        }
-
-
-        private async Task PopulateCategoryAsync(ProductModel model)
-        {
-            model.Categories = await _context.Categories.Select(x => new SelectListItem() { Value = x.ID.ToString(), Text = x.Title }).ToListAsync();
+            return _context.CategoryModel.Any(e => e.ID == id);
         }
     }
 }

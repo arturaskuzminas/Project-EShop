@@ -47,7 +47,7 @@ namespace MyShop.Controllers
                 return View();
             }
             else {
-                results = results.Where(s => s.Title.StartsWith(id));
+                results = results.Where(s => s.Title.ToLowerInvariant().StartsWith(id.ToLowerInvariant()));
                 return View(results);
             }
         }

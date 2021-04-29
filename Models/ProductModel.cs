@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyShop.Models
@@ -35,8 +37,19 @@ namespace MyShop.Models
         [Required(ErrorMessage = "Laukas 'Likutis' yra privalomas")]
         public int StockCount { get; set; }
 
-        [Display(Name = "Nuotr. link'as (PC)")]
+        [Display(Name = "Nuotr. link'as")]
         [Required]
         public string PictureLink { get; set; }
+
+        [Display(Name = "KategorijosID")]
+        [Required(ErrorMessage = "Laukas 'Kategorija' yra privalomas")]
+        public int CategoryID { get; set; }
+
+        [Display(Name = "Kategorija")]
+        [ForeignKey("CategoryID")]
+        public CategoryModel Category { get; set; }
+
+        [NotMapped]
+        public IEnumerable<SelectListItem> Categories { get; set; }
     }
 }
