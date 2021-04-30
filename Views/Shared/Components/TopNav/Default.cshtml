@@ -1,6 +1,16 @@
 ﻿@model IEnumerable<MyShop.Models.CategoryModel>
 
-@foreach (var item in Model)
+@for (int i = 0; i < Model.Count(); i++)
 {
-    <a asp-controller="StoreProduct" asp-action="CategoryProducts" asp-route-id=@item.Title>@item.Title</a>
+    if (Model.ElementAt(i).ParentID == null)
+    {
+        <a asp-controller="StoreProduct" asp-action="CategoryProducts" asp-route-id=@Model.ElementAt(i).Title>@Model.ElementAt(i).Title</a>
+    }
+    for (int j = 0; j < Model.Count(); j++)
+    {
+        if (Model.ElementAt(j).ParentID != null && Model.ElementAt(j).ParentID == Model.ElementAt(i).ID)
+        {
+            <a asp-controller="StoreProduct" asp-action="CategoryProducts" style="color:red" asp-route-id=@Model.ElementAt(j).Title>@Model.ElementAt(j).Title</a>
+        }
+    }
 }

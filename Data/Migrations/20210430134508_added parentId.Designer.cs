@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyShop.Data;
 
 namespace MyShop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210430134508_added parentId")]
+    partial class addedparentId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -237,8 +239,6 @@ namespace MyShop.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ParentID");
-
                     b.ToTable("CategoryModel");
                 });
 
@@ -373,13 +373,6 @@ namespace MyShop.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MyShop.Models.CategoryModel", b =>
-                {
-                    b.HasOne("MyShop.Models.CategoryModel", "Parent")
-                        .WithMany()
-                        .HasForeignKey("ParentID");
                 });
 
             modelBuilder.Entity("MyShop.Models.ProductModel", b =>
