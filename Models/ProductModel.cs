@@ -41,6 +41,10 @@ namespace MyShop.Models
         [Required]
         public string PictureLink { get; set; }
 
+        [Display(Name = "Perkamiausia")]
+        [Required]
+        public bool MostWanted { get; set; }
+
         [Display(Name = "KategorijosID")]
         [Required(ErrorMessage = "Laukas 'Kategorija' yra privalomas")]
         public int CategoryID { get; set; }

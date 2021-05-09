@@ -17,6 +17,9 @@ namespace MyShop.Models
         [Display(Name = "Pavadinimas")]
         [Required(ErrorMessage = "Laukas 'Pavadinimas' yra privalomas")]
         public string Title { get; set; }
+        
+        [Display(Name = "Aprašymas")]
+        public string Description { get; set; }
 
         public int? ParentID { get; set; }
 

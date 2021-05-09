@@ -11,21 +11,28 @@
         object-fit: cover;
     }
 </style>
-<h1 class="text-center">@ViewBag.CategoryName</h1>
+<h1 class="text-center" style=" font-family: 'PT Serif', serif; ">@ViewBag.CategoryName</h1>
 <br />
 @if (ViewBag.searchStr != "incorrect")
 {
-    <div class="container card-group ">
+    <div class="container">
         <div class="row">
+            <div class="col" style="margin-left:85px;margin-right:85px">
+                <hr />
+                <h4>@await Component.InvokeAsync("CategDescr", ViewBag.CategoryName)</h4>
+                <hr />
+            </div>
+        </div>
+        <div class="row no-gutters" style="padding-left:60px">
             @foreach (var item in Model)
             {
-                <div class="col">
-                    <div class="card text-center" style="width: 18rem;">
+                <div class="card-deck ml-2" style="margin-top:20px">
+                    <div class="col md-6 card text-center" style="width: 18rem;">
                         <img class="card-img-top" src=@item.PictureLink alt="Card image cap">
                         <div class="card-body align-items-sm-center">
-                            <h6 class="text-danger"><strong>Naujiena !</strong></h6>
-                            <h5 class="card-title">Laikrodis "@item.Title"</h5>
-                            <h5 style="padding-bottom: 5px">@string.Format("{0:0.00}", item.Price) €</h5>
+                            <h6 class="text-danger" style=" font-family: 'PT Serif', serif;"><strong>Naujiena !</strong></h6>
+                            <h5 class="card-title" style=" font-family: 'PT Serif', serif;">Laikrodis "@item.Title"</h5>
+                            <h5 style="padding-bottom: 5px; font-family: 'PT Serif', serif;">@string.Format("{0:0.00}", item.Price) €</h5>
                             <a asp-action="Product" asp-controller="StoreProduct" asp-route-id="@item.ID" class="btn btn-outline-dark align-content-center">Detaliau</a>
                         </div>
                     </div>

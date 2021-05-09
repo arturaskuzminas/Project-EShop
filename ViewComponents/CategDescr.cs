@@ -1,16 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyShop.ViewComponents
 {
-    public class TopNavViewComponent : ViewComponent
+    public class CategDescr : ViewComponent
     {
         private readonly ApplicationDbContext _context;
 
-        public TopNavViewComponent(ApplicationDbContext context)
+        public CategDescr(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -18,7 +20,7 @@ namespace MyShop.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var collection = await _context.Categories.ToListAsync();
-            return View(collection);
+            return View(collection.Where(c => c.Title.Equals(ViewBag.CategoryName)).First());
         }
     }
 }

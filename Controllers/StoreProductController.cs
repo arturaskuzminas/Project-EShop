@@ -46,7 +46,8 @@ namespace MyShop.Controllers
                 ViewBag.searchStr = "incorrect";
                 return View();
             }
-            else {
+            else
+            {
                 results = results.Where(s => s.Title.ToLowerInvariant().StartsWith(id.ToLowerInvariant()));
                 return View(results);
             }

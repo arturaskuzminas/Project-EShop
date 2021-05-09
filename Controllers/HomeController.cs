@@ -26,13 +26,36 @@ namespace MyShop.Controllers
             List<ProductModel> products = await _context.Products.ToListAsync();
             List<ProductModel> collection = new List<ProductModel>();
 
-            collection.Add(products.Where(p => p.Title.Contains("Night")).First());
-            collection.Add(products.Where(p => p.Title.Contains("Ivory")).First());
-            collection.Add(products.Where(p => p.Title.Contains("Lewis")).First());
+            var menItems = products.Where(p => p.ForSex.Equals("V") && p.MostWanted == true).ToList();
+            var womenItems = products.Where(p => p.ForSex.Equals("M") && p.MostWanted == true).ToList();
 
-            collection.Add(products.Where(p => p.Title.Contains("Nimbo")).First());
-            collection.Add(products.Where(p => p.Title.Contains("Mangana")).First());
-            collection.Add(products.Where(p => p.Title.Contains("Pheonix")).First());
+            int i = 0;
+            foreach(var item in menItems)
+            {
+                if(i < 3)
+                {
+                    collection.Add(item);
+                    i++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            int j = 0;
+            foreach (var item in womenItems)
+            {
+                if(j < 3)
+                {
+                    collection.Add(item);
+                    j++;
+                }
+                else
+                {
+                    break;
+                }
+            }
 
             return View(collection);
         }
