@@ -1,16 +1,61 @@
 ﻿@model IEnumerable<MyShop.Models.CategoryModel>
 
+<style>
+
+
+    /* Nav: second level */
+    #sidebar .nav2 {
+        display: none;
+    }
+
+    #sidebar > li.active .nav2 {
+        display: block;
+    }
+
+    #sidebar .nav2 {
+        margin-bottom: 8px;
+    }
+
+        #sidebar .nav2 > li > a {
+            padding-top: 3px;
+            padding-bottom: 3px;
+            padding-left: 30px;
+            font-size: 90%;
+        }
+
+</style>
+
+
+
 @for (int i = 0; i < Model.Count(); i++)
 {
     if (Model.ElementAt(i).ParentID == null)
     {
         <a asp-controller="StoreProduct" asp-action="CategoryProducts" asp-route-id=@Model.ElementAt(i).Title>@Model.ElementAt(i).Title</a>
     }
-    for (int j = 0; j < Model.Count(); j++)
+    @for (int j = 0; j < Model.Count(); j++)
     {
+
         if (Model.ElementAt(j).ParentID != null && Model.ElementAt(j).ParentID == Model.ElementAt(i).ID)
         {
-            <a asp-controller="StoreProduct" asp-action="CategoryProducts" style="color:red" asp-route-id=@Model.ElementAt(j).Title>@Model.ElementAt(j).Title</a>
+            <ul class="nav2" style="list-style-type: none">
+                <li>
+                    <a asp-controller="StoreProduct" asp-action="CategoryProducts" style="color:red; font-size:medium" asp-route-id=@Model.ElementAt(j).Title>@Model.ElementAt(j).Title</a>
+                </li>
+            </ul>
+           
         }
     }
 }
+
+
+@*<div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown button
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>*@
