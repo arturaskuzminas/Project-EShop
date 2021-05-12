@@ -18,21 +18,21 @@
             <img src=@Html.DisplayFor(modelItem => modelItem.PictureLink) height="400">
         </div>
         <div class="col text-left align-self-center">
-            <h4 style=" font-family: 'PT Serif', serif;">PAVADINIMAS: @Html.DisplayFor(modelItem => modelItem.Title)</h4>
-            <h4 style=" font-family: 'PT Serif', serif;">BRANDAS: @Html.DisplayFor(modelItem => modelItem.Brand)</h4>
-            <h4 style=" font-family: 'PT Serif', serif;">DYDIS: @Html.DisplayFor(modelItem => modelItem.Size)</h4>
+            <h4 style=" font-family: 'PT Serif', serif;padding-left:20px"><strong>PAVADINIMAS:</strong> @Html.DisplayFor(modelItem => modelItem.Title)</h4>
+            <h4 style=" font-family: 'PT Serif', serif;padding-left:20px"><strong>BRANDAS:</strong> @Html.DisplayFor(modelItem => modelItem.Brand)</h4>
+            <h4 style=" font-family: 'PT Serif', serif;padding-left:20px"><strong>DYDIS:</strong> @Html.DisplayFor(modelItem => modelItem.Size)</h4>
             @if (Model.ForSex.Contains('V'))
             {
-                <h4 style=" font-family: 'PT Serif', serif;">KATEGORIJA: Vyriškas</h4>
+                <h4 style=" font-family: 'PT Serif', serif;padding-left:20px"><strong>KATEGORIJA:</strong> Vyriškas</h4>
             }
             else
             {
-                <h4 style=" font-family: 'PT Serif', serif;">KATEGORIJA: Moteriškas</h4>
+                <h4 style=" font-family: 'PT Serif', serif;padding-left:20px"><strong>KATEGORIJA:</strong> Moteriškas</h4>
             }
-            <h4 style=" font-family: 'PT Serif', serif;">SPALVA: @Html.DisplayFor(modelItem => modelItem.Color)</h4>
-            <h4 style=" font-family: 'PT Serif', serif;">KIEKIS SANDĖLYJE: @Html.DisplayFor(modelItem => modelItem.StockCount) vnt.</h4>
+            <h4 style=" font-family: 'PT Serif', serif;padding-left:20px"><strong>SPALVA:</strong> @Html.DisplayFor(modelItem => modelItem.Color)</h4>
+            <h4 style=" font-family: 'PT Serif', serif;padding-left:20px"><strong>KIEKIS SANDĖLYJE:</strong> @Html.DisplayFor(modelItem => modelItem.StockCount) vnt.</h4>
             <br />
-            <h4 style="padding-bottom: 5px; font-family: 'PT Serif', serif;">KAINA: @string.Format("{0:0.00}", Model.Price) €</h4>
+            <h4 style="padding-bottom: 5px; font-family: 'PT Serif', serif;padding-left:20px"><strong>KAINA:</strong> @string.Format("{0:0.00}", Model.Price) €</h4>
 
             <div class="form-group text-center">
                 <button type="submit" class="btn btn-outline-dark" style="width:100px" ;>Į krepšelį</button>
@@ -41,8 +41,18 @@
     </div>
     <div class="row no-gutters" style="background-color: white; margin-top: 10px; padding: 20px 20px 20px 20px" id="shadow21">
         <h2 style=" font-family: 'PT Serif', serif;">APRAŠYMAS</h2>
-        <hr />
-        @Model.Description
+    </div>
+    <div class="row no-gutters" style="background-color: white; padding: 20px 20px 20px 20px" id="shadow21">
+        @if (string.IsNullOrEmpty(Model.Description))
+        {
+            <br />
+            <p>Kolkas aprašymo nėra, bet greitai bus !</p>
+        }
+        else
+        {
+            <br />
+            <p>Model.Description</p>
+        }
     </div>
 </div>
 

@@ -139,7 +139,12 @@ namespace MyShop.Controllers
 
         private async Task PopulateCategoryAsync(ProductModel model)
         {
-            model.Categories = await _context.Categories.Select(x => new SelectListItem() { Value = x.ID.ToString(), Text = x.Title }).ToListAsync();
+            model.Categories = await _context.Categories.
+                Select(x => new SelectListItem()
+                {
+                    Value = x.ID.ToString(),
+                    Text = x.Title
+                }).ToListAsync();
         }
     }
 }
