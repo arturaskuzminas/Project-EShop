@@ -39,7 +39,7 @@ namespace MyShop.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,Price,Brand,Size,Color,StockCount,PictureLink,ForSex,,MostWanted,CategoryID")] ProductModel productModel)
+        public async Task<IActionResult> Create([Bind("ID,Title,Price,Brand,Size,Color,StockCount,PictureLink,ForSex,,MostWanted,CategoryID,Description")] ProductModel productModel)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +72,7 @@ namespace MyShop.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Price,Brand,Size,Color,StockCount,PictureLink,ForSex, MostWanted, CategoryID")] ProductModel productModel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Price,Brand,Size,Color,StockCount,PictureLink,ForSex, MostWanted, CategoryID, Description")] ProductModel productModel)
         {
             if (id != productModel.ID)
             {

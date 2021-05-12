@@ -53,6 +53,9 @@ namespace MyShop.Models
         [ForeignKey("CategoryID")]
         public CategoryModel Category { get; set; }
 
+        [Display(Name = "Aprašymas")]
+        public string Description { get; set; }
+
         [NotMapped]
         public IEnumerable<SelectListItem> Categories { get; set; }
     }
