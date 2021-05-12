@@ -29,6 +29,9 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.ParentID)
+            </td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Redaguoti</a> |
                 <a asp-action="Delete" asp-route-id="@item.ID">Ištrinti</a>
             </td>

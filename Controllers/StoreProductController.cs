@@ -58,7 +58,7 @@ namespace MyShop.Controllers
         public async Task<IActionResult> CategoryProducts(string id)
         {
             IEnumerable<ProductModel> products = await _context.Products.ToListAsync();
-            int categoryID = _context.Categories.Where(n => n.Title == id).First().ID;
+            int categoryID = _context.Categories.Where(n => n.ID == int.Parse(id)).First().ID;
 
             if (string.IsNullOrEmpty(id))
             {
@@ -67,8 +67,8 @@ namespace MyShop.Controllers
             }
             else
             {
-                products = products.Where(s => s.CategoryID == categoryID);
-                ViewBag.CategoryName = id;
+                products = products.Where(pr => pr.CategoryID == categoryID);
+                ViewBag.CategoryName = _context.Categories.Where(n => n.ID == int.Parse(id)).First().Title;
                 return View(products);
             }
         }

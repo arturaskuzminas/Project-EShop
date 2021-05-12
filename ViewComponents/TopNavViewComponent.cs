@@ -18,7 +18,7 @@ namespace MyShop.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var collection = await _context.Categories.ToListAsync();
-            return View(collection);
+            return View(collection.OrderBy(elem => elem.Title));
         }
     }
 }
