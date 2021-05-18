@@ -4,11 +4,25 @@
 // Write your JavaScript code.
 
 function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
+    open();
+    wt();
+}
+
+function open() {
+    document.getElementById("mySidenav").style.width = "260px";
+    document.getElementById("links").style.opacity = "0";
+}
+
+function wt() {
+    setTimeout(function () {
+        document.getElementById("links").style.opacity = "3";
+    }, 280);
 }
 
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("links").style.opacity = "0";
+    //document.getElementById("mySidenav").style.zIndex = "-1";
 }
 
 function confirmDelete(uniqueId, isDeleteClicked) {
