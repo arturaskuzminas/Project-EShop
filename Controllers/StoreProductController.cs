@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
@@ -22,6 +23,7 @@ namespace MyShop.Controllers
         // GET: StoreProduct
         public async Task<IActionResult> Product(int? id)
         {
+            ViewBag.id = id;
             if (id == null)
             {
                 return NotFound();
@@ -71,6 +73,12 @@ namespace MyShop.Controllers
                 ViewBag.CategoryName = _context.Categories.Where(n => n.ID == int.Parse(id)).First().Title;
                 return View(products);
             }
+        }
+
+        public ActionResult AddToCart(int id)
+        {
+            HttpContext.Session.SetInt32("inc", (int)HttpContext.Session.GetInt32("inc") + 1);
+            return RedirectToAction("Product", "StoreProduct", new { id });
         }
     }
 }

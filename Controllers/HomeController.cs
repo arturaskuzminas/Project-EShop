@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyShop.Data;
@@ -23,6 +24,10 @@ namespace MyShop.Controllers
 
         public async Task<dynamic> Index()
         {
+            if (HttpContext.Session.GetInt32("inc") == null)
+            {
+                HttpContext.Session.SetInt32("inc", 0);
+            }
             List<ProductModel> products = await _context.Products.ToListAsync();
             List<ProductModel> collection = new List<ProductModel>();
 
@@ -58,11 +63,6 @@ namespace MyShop.Controllers
             }
 
             return View(collection);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         public IActionResult About()

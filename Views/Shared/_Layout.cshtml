@@ -1,5 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,7 +15,7 @@
     <link rel="stylesheet" href="~/css/footer.css" />
     <!--Pabaiga-->
 </head>
-<body style="background-image: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(236,232,252,1) 0%);"> 
+<body style="background-image: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(236,232,252,1) 0%);">
     <!------------------------------------- Navbar'o kodas ---------------------------------------------------------->
     <header>
         <nav class="navbar fixed-top navbar-dark bg-dark">
@@ -40,7 +42,11 @@
                 <a class="navbar-brand abs-center-x" asp-action="Index" asp-controller="Home">
                     <img src="~/images/logo_nav.png" width="65" height="40" alt="logo" />
                 </a>
-                <a href="#" class="ml-auto"><img src="~/images/icon_cart.png" height="30" width="30" /></a>
+                <a href="#" class="ml-auto" style="margin-right:20px">
+                    <img src="~/images/icon_cart.png" height="30" width="30" style="position:relative" />
+                    <input type="text" class="rounded-circle text-center hah" id="counter" value="@HttpContextAccessor.HttpContext.Session.GetInt32("inc")"
+                           style="width:20px;height:20px;font-size:10px;z-index:2;right:271px;bottom:25px;color:white;background:#e31919 ;vertical-align:top;position:absolute;font-weight:bold" disabled />
+                </a>
                 <!------- Čia iškviečiamas View, kuris vadinasi _LogicPartial, kuris dinamiškai keičia navbar'ą priklausomai nuo naudotojo būsenos (prisijungęs/neprisijungęs ir t.t ------------------->
                 <partial name="_LoginPartial" />
             </div>

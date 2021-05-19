@@ -19,6 +19,10 @@ function wt() {
     }, 280);
 }
 
+function buttonClick() {
+    
+}
+
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
     document.getElementById("links").style.opacity = "0";
