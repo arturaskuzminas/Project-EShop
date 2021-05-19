@@ -19,9 +19,28 @@ function wt() {
     }, 280);
 }
 
-function buttonClick() {
-    
+function openCartNav() {
+    openCart();
+    wtCart();
 }
+
+function openCart() {
+    document.getElementById("mySideCart").style.width = "380px";
+    document.getElementById("mySideCart").style.zIndex = 4;
+    document.getElementById("cartText").style.opacity = "0";
+}
+
+function closeCart() {
+    document.getElementById("mySideCart").style.width = "0";
+    document.getElementById("cartText").style.opacity = "0";
+}
+
+function wtCart() {
+    setTimeout(function () {
+        document.getElementById("cartText").style.opacity = "3";
+    }, 280);
+}
+
 
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";

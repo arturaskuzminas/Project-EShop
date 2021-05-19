@@ -45,7 +45,51 @@
             font-size: 18px;
         }
 }
+/*----------------------------------------------*/
+.sidenavRight {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.4s;
+    padding-top: 60px;
+}
 
+    .sidenavRight a {
+        padding: 8px 8px 8px 5px;
+        text-decoration: none;
+        font-size: 20px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+        .sidenavRight a:hover {
+            color: #f1f1f1;
+        }
+
+    .sidenavRight .closebtn {
+        position: absolute;
+        top: 0;
+        left: 10px;
+        font-size: 36px;
+        margin-right: 70px;
+    }
+
+@media screen and (max-height: 450px) {
+    .sidenavRight {
+        padding-top: 15px;
+    }
+
+        .sidenavRight a {
+            font-size: 18px;
+        }
+}
+/*----------------------------------------------*/
 .modal-login {
     color: #636363;
     width: 350px;

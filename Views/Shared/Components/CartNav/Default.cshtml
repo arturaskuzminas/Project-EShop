@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<style>
+    .stl {
+        color: white;
+    }
+</style>
+<div id="cartText" class="stl">
+    <h4 class="text-center">Prekių krepšelis</h4>
+    <hr style="background:white;margin-left:35px;margin-right:35px" />
+    <p style="margin-left:35px">Prekių kiekis: @HttpContextAccessor.HttpContext.Session.GetInt32("inc")</p>
+    <hr style="background:white;margin-left:35px;margin-right:35px" />
+    <button class="btn btn-success mx-auto d-block font-weight-bold" style="width:310px;">Pirkti</button>
+</div>

@@ -42,11 +42,17 @@
                 <a class="navbar-brand abs-center-x" asp-action="Index" asp-controller="Home">
                     <img src="~/images/logo_nav.png" width="65" height="40" alt="logo" />
                 </a>
-                <a href="#" class="ml-auto" style="margin-right:20px">
+                <a href="#" onclick="openCartNav()" class="ml-auto" style="margin-right:20px">
                     <img src="~/images/icon_cart.png" height="30" width="30" style="position:absolute;right:290px;bottom:10px" />
                     <input type="text" class="rounded-circle text-center counter" id="counter" value="@HttpContextAccessor.HttpContext.Session.GetInt32("inc")"
                            style="width:20px;height:20px;font-size:10px;z-index:2;right:278px;bottom:25px;color:white;background:#e31919 ;vertical-align:top;position:absolute;font-weight:bold" disabled />
                 </a>
+                <div id="mySideCart" class="sidenavRight">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeCart()">&times;</a>
+                    <div id="links">
+                        @await Component.InvokeAsync("CartNav")
+                    </div>
+                </div>
                 <!------- Čia iškviečiamas View, kuris vadinasi _LogicPartial, kuris dinamiškai keičia navbar'ą priklausomai nuo naudotojo būsenos (prisijungęs/neprisijungęs ir t.t ------------------->
                 <partial name="_LoginPartial" />
             </div>
