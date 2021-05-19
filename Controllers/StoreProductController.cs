@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace MyShop.Controllers
 {
-    [AllowAnonymous]
     public class StoreProductController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,6 +19,7 @@ namespace MyShop.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         // GET: StoreProduct
         public async Task<IActionResult> Product(int? id)
         {
@@ -37,6 +37,7 @@ namespace MyShop.Controllers
             return View(productModel);
         }
 
+        [AllowAnonymous]
         // GET: StoreProducts
         [HttpGet]
         public async Task<IActionResult> ProductsAsync(string id)
@@ -55,6 +56,7 @@ namespace MyShop.Controllers
             }
         }
 
+        [AllowAnonymous]
         // GET: CategoryProducts
         [HttpGet]
         public async Task<IActionResult> CategoryProducts(string id)
@@ -75,6 +77,7 @@ namespace MyShop.Controllers
             }
         }
 
+        [Authorize(Roles = "User, Admin")]
         public ActionResult AddToCart(int id)
         {
             HttpContext.Session.SetInt32("inc", (int)HttpContext.Session.GetInt32("inc") + 1);

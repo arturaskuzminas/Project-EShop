@@ -9,7 +9,7 @@
 <!------------------------------------ Jeigu naudotojas yra adminas tada jis matys tokį navbar'ą ------------------------------------------>
 @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admin")))
 {
-    <li class="dropdown">
+    <li class="dropdown" style="list-style-type:none">
         <a class="btn btn-outline-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Valdymas
         </a>
@@ -30,7 +30,7 @@
 // ------------------------------- Jeigu naudotojas yra prisijungęs ir yra paprastas naudotojas tada jis matys tokį navbarą --------------------------------------------
 else if (SignInManager.IsSignedIn(User))
 {
-    <li class="dropdown">
+    <li class="dropdown" style="list-style-type:none">
         <a class="btn btn-outline-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Nustatymai
         </a>
