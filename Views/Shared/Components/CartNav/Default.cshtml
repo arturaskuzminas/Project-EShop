@@ -7,7 +7,7 @@
     }
 </style>
 <div id="cartText" class="stl">
-    <h4 class="text-center">Prekių krepšelis</h4>
+    <h4 class="text-center">Krepšelio peržiūra</h4>
     <br />
     @if (Model.Count() == 0)
     {
@@ -19,7 +19,7 @@
     {
         <div class="row border-bottom" style="margin-left: 35px;margin-right:35px ">
             <div class="col-7">
-                <div style="padding-left:29px">Pavadinimas</div>
+                <div style="padding-left:2px">Pavadinimas</div>
             </div>
             <div class="col-2 text-right">
                 Kiekis
@@ -33,7 +33,6 @@
             {
                 <div class="row">
                     <div class="col-7" style="padding-left:67px">
-                        <i class="fa fa-remove" style="color:red;margin-right:10px"> </i>
                         Laikr. "@item.ItemName"
                     </div>
                     <div class="col mx-auto">

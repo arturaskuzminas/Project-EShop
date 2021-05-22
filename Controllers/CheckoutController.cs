@@ -1,16 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyShop.Data;
 using MyShop.Extensions;
 using MyShop.Models;
 using MyShop.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MyShop.Controllers
 {
+    [Authorize(Roles = "User, Admin")]
     public class CheckoutController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,7 +21,6 @@ namespace MyShop.Controllers
             helper = new CartHelper();
         }
 
-        [Authorize(Roles = "User, Admin")]
         public IActionResult Index()
         {
             List<ProductModel> collection = Extensions.SessionExtensions.GetObjectFromJson<List<ProductModel>>(HttpContext.Session, "cart");
@@ -30,6 +28,16 @@ namespace MyShop.Controllers
             List<CartViewModel> products = helper.GroupedProducts(collection);
 
             return View(products);
+        }
+
+        public IActionResult RemoveItem(string id)
+        {
+            List<ProductModel> collection = Extensions.SessionExtensions.GetObjectFromJson<List<ProductModel>>(HttpContext.Session, "cart");
+            collection.RemoveAll(p => p.Title.Equals(id));
+            Extensions.SessionExtensions.SetObjectAsJson(HttpContext.Session, "cart", collection);
+            HttpContext.Session.SetInt32("inc", collection.Count);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
