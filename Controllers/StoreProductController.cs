@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
+using MyShop.Extensions;
 using MyShop.Models;
+using MyShop.ViewComponents;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,10 +15,12 @@ namespace MyShop.Controllers
     public class StoreProductController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly CartHelper helper;
 
         public StoreProductController(ApplicationDbContext context)
         {
             _context = context;
+            helper = new CartHelper();
         }
 
         [AllowAnonymous]
@@ -80,7 +84,12 @@ namespace MyShop.Controllers
         [Authorize(Roles = "User, Admin")]
         public ActionResult AddToCart(int id)
         {
-            HttpContext.Session.SetInt32("inc", (int)HttpContext.Session.GetInt32("inc") + 1);
+            List<ProductModel> list = Extensions.SessionExtensions.GetObjectFromJson<List<ProductModel>>(HttpContext.Session, "cart");
+            list.Add(_context.Products.Where(p => p.ID.Equals(id)).First());
+            list.Sort(helper.GetComparerByTitle());
+            Extensions.SessionExtensions.SetObjectAsJson(HttpContext.Session, "cart", list);
+
+            HttpContext.Session.SetInt32("inc", list.Count());
             return RedirectToAction("Product", "StoreProduct", new { id });
         }
     }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyShop.Data;
+using MyShop.Extensions;
 using MyShop.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,6 +16,7 @@ namespace MyShop.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
+        private CartHelper cartH;
 
         public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
@@ -28,6 +30,12 @@ namespace MyShop.Controllers
             {
                 HttpContext.Session.SetInt32("inc", 0);
             }
+            if (HttpContext.Session.GetString("cart") == null)
+            {
+                cartH = new CartHelper();
+                Extensions.SessionExtensions.SetObjectAsJson(HttpContext.Session, "cart", cartH.CartProducts);
+            }
+
             List<ProductModel> products = await _context.Products.ToListAsync();
             List<ProductModel> collection = new List<ProductModel>();
 

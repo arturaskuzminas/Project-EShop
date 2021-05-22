@@ -1,0 +1,7 @@
+﻿@model IEnumerable<MyShop.ViewModels.CartViewModel>
+
+
+@foreach (var item in Model)
+{
+    <p>@item.ItemName @item.ItemCount  @string.Format("{0:0.00}", item.ItemPrice)</p>
+}

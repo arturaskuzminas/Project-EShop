@@ -58,5 +58,7 @@ namespace MyShop.Models
 
         [NotMapped]
         public IEnumerable<SelectListItem> Categories { get; set; }
+
+
     }
 }

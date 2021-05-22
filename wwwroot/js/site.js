@@ -25,7 +25,7 @@ function openCartNav() {
 }
 
 function openCart() {
-    document.getElementById("mySideCart").style.width = "380px";
+    document.getElementById("mySideCart").style.width = "400px";
     document.getElementById("mySideCart").style.zIndex = 4;
     document.getElementById("cartText").style.opacity = "0";
 }

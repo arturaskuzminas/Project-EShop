@@ -1,28 +1,29 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
 using MyShop.Extensions;
 using MyShop.Models;
 using MyShop.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MyShop.ViewComponents
+namespace MyShop.Controllers
 {
-    public class CartNav : ViewComponent
+    public class CheckoutController : Controller
     {
         private readonly ApplicationDbContext _context;
         private CartHelper helper;
 
-        public CartNav(ApplicationDbContext context)
+        public CheckoutController(ApplicationDbContext context)
         {
             _context = context;
             helper = new CartHelper();
         }
 
-        public IViewComponentResult Invoke()
+        [Authorize(Roles = "User, Admin")]
+        public IActionResult Index()
         {
             List<ProductModel> collection = Extensions.SessionExtensions.GetObjectFromJson<List<ProductModel>>(HttpContext.Session, "cart");
             ViewBag.Total = helper.GetProductsTotalPrice(collection);
