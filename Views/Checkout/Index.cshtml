@@ -12,6 +12,9 @@ else
         <form asp-action="RemoveItem" asp-route-id="@item.ItemName">
             <div class="row">
                 <div class="col">
+                    <img src="@item.pictureLink" height="200" style="padding-bottom:5px;min-width:380px" />
+                </div>
+                <div class="col">
                     @item.ItemName
                 </div>
                 <div class="col">

@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
 using MyShop.Extensions;
 using MyShop.Models;
 using MyShop.ViewModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MyShop.Controllers
 {
@@ -26,6 +28,8 @@ namespace MyShop.Controllers
             List<ProductModel> collection = Extensions.SessionExtensions.GetObjectFromJson<List<ProductModel>>(HttpContext.Session, "cart");
             ViewBag.Total = helper.GetProductsTotalPrice(collection);
             List<CartViewModel> products = helper.GroupedProducts(collection);
+
+
 
             return View(products);
         }
