@@ -38,14 +38,16 @@ namespace MyShop.Extensions
             {
                 ProductName = p.Key,
                 ProductCount = p.Count(),
-                ProductPrice = p.Select(p => p.Price).Sum(),
-                ProductPicture = p.Select(p => p.PictureLink).First()
+                ProductTotalPrice = p.Select(p => p.Price).Sum(),
+                ProductPicture = p.Select(p => p.PictureLink).First(),
+                ProductPrice = p.Select(p => p.Price).First()
             }).OrderBy(p => p.ProductName);
 
             List<CartViewModel> cartProducts = new List<CartViewModel>();
             foreach (var item in query)
             {
-                CartViewModel product = new CartViewModel(item.ProductName, item.ProductCount, item.ProductPrice, item.ProductPicture);
+                CartViewModel product = new CartViewModel(item.ProductName, item.ProductCount,
+                                                          item.ProductTotalPrice, item.ProductPicture, item.ProductPrice);
                 cartProducts.Add(product);
             }
             return cartProducts;

@@ -9,15 +9,17 @@ namespace MyShop.ViewModels
     {
         public string ItemName { get; set; }
         public int ItemCount { get; set; }
-        public decimal ItemPrice { get; set; }
+        public decimal ItemTotalPrice { get; set; }
         public string pictureLink { get; set; }
+        public decimal ItemPrice { get; set; }
 
-        public CartViewModel(string itemName, int itemCount, decimal itemPrice, string pictureLink)
+        public CartViewModel(string itemName, int itemCount, decimal itemTotalPrice, string pictureLink, decimal itemPrice)
         {
             ItemName = itemName;
             ItemCount = itemCount;
-            ItemPrice = itemPrice;
+            ItemTotalPrice = itemTotalPrice;
             this.pictureLink = pictureLink;
+            ItemPrice = itemPrice;
         }
     }
 }

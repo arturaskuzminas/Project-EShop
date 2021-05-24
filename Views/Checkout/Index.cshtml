@@ -3,84 +3,65 @@
 
 @if (Model.Count() == 0)
 {
-    <h2>Prekių krepšelis tuščias</h2>
+    <h2 class="text-center">Prekių krepšelis tuščias</h2>
 }
 else
 {
-    @foreach (var item in Model)
-    {
-        @*<form asp-action="RemoveItem" asp-route-id="@item.ItemName">
-                <div class="row">
-                    <div class="col">
-                        <img src="@item.pictureLink" height="150" style="padding-bottom:5px;min-width:200px" />
-                    </div>
-                    <div class="col">
-                        @item.ItemName
-                    </div>
-                    <div class="col">
-                        @item.ItemCount
-                    </div>
-                    <div class="col">
-                        @string.Format("{0:0.00}", item.ItemPrice)
-                    </div>
-                    <div class="col">
-                        <input href="#" value="Pašalinti prekę" type="submit">
-                    </div>
-                </div>
-            </form>*@
-        <form asp-action="RemoveItem" asp-route-id="@item.ItemName">
-            <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-            <div class="container">
-                <table id="cart" class="table table-hover table-condensed">
-                    <thead>
-                        <tr>
-                            <th style="width:50%">Product</th>
-                            <th style="width:10%">Price</th>
-                            <th style="width:8%">Quantity</th>
-                            <th style="width:22%" class="text-center">Subtotal</th>
-                            <th style="width:10%"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="container">
+        <table id="cart" class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th class="text-right" style="width:40%;padding-right:49px">Produktas</th>
+                    <th style="width:11%;padding-left:24px">Kaina (vnt.)</th>
+                    <th style="width:8%" class="text-right">Kiekis</th>
+                    <th style="width:22%;" class="text-center">Tarpinė suma</th>
+                    <th style="width:10%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <form asp-action="RemoveItem" asp-route-id="@item.ItemName">
                         <tr>
                             <td data-th="Product">
                                 <div class="row">
-                                    <div class="col-sm-2 hidden-xs"><img src="@item.pictureLink" alt="..." style="height:150px; min-width:200px" class="img-responsive" /></div>
+                                    <div class="col-sm-2 hidden-xs"><img src="@item.pictureLink" alt="..." style="height:150px; width:150px;object-fit:cover" class="img-responsive" /></div>
                                     <div class="col-sm-10">
-                                        <h4 class="nomargin" style="margin-bottom:100px; margin-left: 300px">@item.ItemName</h4>
+                                        <span class="nomargin text-right" style="margin-bottom:100px; margin-left: 257px; font-size:16px;">@item.ItemName</span>
                                     </div>
                                 </div>
                             </td>
-                            <td data-th="Price">@string.Format("{0:0.00}", item.ItemPrice)</td>
-                            <td data-th="Quantity">
-                                <input type="number" class="form-control text-center" value="1">
-                            </td>
-                            <td data-th="Subtotal" class="text-center">@string.Format("{0:0.00}", item.ItemPrice)</td>
+                            <td data-th="Price" class="text-center">@string.Format("{0:0.00}", item.ItemPrice) €</td>
+                            <td data-th="Quantity" class="text-center" style="padding-left:30px">@item.ItemCount</td>
+                            <td data-th="Subtotal" class="text-center">@string.Format("{0:0.00}", item.ItemTotalPrice) €</td>
                             <td class="actions" data-th="">
-                                <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
                                 <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-o"></i></button>
                             </td>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
-        </form>
-
-}
-    <div class="container">
-        <table id="cart" class="table table-hover table-condensed">
-            <tfoot>
-                <tr>
-                    <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
-                    <td colspan="2" class="hidden-xs"></td>
-                    <td class="hidden-xs text-center"><strong>@string.Format("{0:0.00}", ViewBag.Total)</strong></td>
-                    <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
-                </tr>
-            </tfoot>
-
+                    </form>
+                }
+            </tbody>
         </table>
     </div>
-    @*<p>Iš viso: @string.Format("{0:0.00}", ViewBag.Total)</p>*@
+    <div class="container">
+        <table id="cart" class="table table-hover table-condensed" style="border-bottom:none">
+            <tfoot>
+                <tr>
+                    <td><a href="@Url.Action("Index","Home")" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tęsti apsipirkimą</a></td>
+                    <td colspan="2" class="hidden-xs"></td>
+                    <td></td>
+                    <td class="hidden-xs text-center" style="vertical-align:middle"><strong>Iš viso: @string.Format("{0:0.00}", ViewBag.Total) €</strong></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2" class="hidden-xs"></td>
+                    <td></td>
+                    <td><a href="#" class="btn btn-success btn-block">Apmokėti<i class="fa fa-angle-right"></i></a></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 }
 <br />
 <br />
