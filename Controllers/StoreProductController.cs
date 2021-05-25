@@ -56,29 +56,98 @@ namespace MyShop.Controllers
             else
             {
                 results = results.Where(s => s.Title.ToLowerInvariant().StartsWith(id.ToLowerInvariant()));
-                return View(results);
+                if(results.Count() == 0)
+                {
+                    ViewBag.searchStr = "incorrect";
+                    return View();
+                } else
+                {
+                    return View(results);
+                }
             }
         }
 
         [AllowAnonymous]
         // GET: CategoryProducts
         [HttpGet]
-        public async Task<IActionResult> CategoryProducts(string id)
+        public async Task<IActionResult> CategoryProducts(string id, int? sort)
         {
             IEnumerable<ProductModel> products = await _context.Products.ToListAsync();
             int categoryID = _context.Categories.Where(n => n.ID == int.Parse(id)).First().ID;
 
-            if (string.IsNullOrEmpty(id))
+            if (sort == null)
             {
-                ViewBag.searchStr = "incorrect";
-                return View();
+                if (string.IsNullOrEmpty(id))
+                {
+                    ViewBag.searchStr = "incorrect";
+                    return View();
+                }
+                else
+                {
+                    products = products.Where(pr => pr.CategoryID == categoryID);
+                    ViewBag.CategoryName = _context.Categories.Where(n => n.ID == int.Parse(id)).First().Title;
+                    return View(products);
+                }
             }
-            else
+            if ( sort == 1 ) {
+                if (string.IsNullOrEmpty(id))
+                {
+                    ViewBag.searchStr = "incorrect";
+                    return View();
+                }
+                else
+                {
+                    products = products.Where(pr => pr.CategoryID == categoryID);
+                    ViewBag.CategoryName = _context.Categories.Where(n => n.ID == int.Parse(id)).First().Title;
+                    return View(products.OrderBy(p => p.Title));
+                }
+            }
+
+            if (sort == 2)
             {
-                products = products.Where(pr => pr.CategoryID == categoryID);
-                ViewBag.CategoryName = _context.Categories.Where(n => n.ID == int.Parse(id)).First().Title;
-                return View(products);
+                if (string.IsNullOrEmpty(id))
+                {
+                    ViewBag.searchStr = "incorrect";
+                    return View();
+                }
+                else
+                {
+                    products = products.Where(pr => pr.CategoryID == categoryID);
+                    ViewBag.CategoryName = _context.Categories.Where(n => n.ID == int.Parse(id)).First().Title;
+                    return View(products.OrderByDescending(p => p.Title));
+                }
             }
+
+            if (sort == 3)
+            {
+                if (string.IsNullOrEmpty(id))
+                {
+                    ViewBag.searchStr = "incorrect";
+                    return View();
+                }
+                else
+                {
+                    products = products.Where(pr => pr.CategoryID == categoryID);
+                    ViewBag.CategoryName = _context.Categories.Where(n => n.ID == int.Parse(id)).First().Title;
+                    return View(products.OrderByDescending(p => p.Price));
+                }
+            }
+
+            if (sort == 4)
+            {
+                if (string.IsNullOrEmpty(id))
+                {
+                    ViewBag.searchStr = "incorrect";
+                    return View();
+                }
+                else
+                {
+                    products = products.Where(pr => pr.CategoryID == categoryID);
+                    ViewBag.CategoryName = _context.Categories.Where(n => n.ID == int.Parse(id)).First().Title;
+                    return View(products.OrderBy(p => p.Price));
+                }
+            }
+            return View();
         }
 
         [Authorize(Roles = "User, Admin")]
