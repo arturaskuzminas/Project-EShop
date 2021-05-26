@@ -10,18 +10,22 @@ namespace MyShop.Models
         public decimal OrderTotalPrice { get; set; }
         public string UserID { get; set; }
         public DateTime Date { get; set; }
+        public string Status { get; set; }
+        public string Address { get; set; }
 
         public Order()
         {
 
         }
 
-        public Order(int orderId, decimal OrderTotalPrice, string userID)
+        public Order(int orderId, decimal OrderTotalPrice, string userID, string address)
         {
             this.OrderID = OrderID;
             this.OrderTotalPrice = OrderTotalPrice;
             this.UserID = userID;
             this.Date = DateTime.Now;
+            this.Status = "Apdorojamas";
+            this.Address = address;
         }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
 using MyShop.Extensions;
 using MyShop.Models;
+using MyShop.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -160,11 +161,31 @@ namespace MyShop.Controllers
         public ActionResult AddToCart(int id)
         {
             List<ProductModel> list = Extensions.SessionExtensions.GetObjectFromJson<List<ProductModel>>(HttpContext.Session, "cart");
-            list.Add(_context.Products.Where(p => p.ID.Equals(id)).First());
-            list.Sort(helper.GetComparerByTitle());
-            Extensions.SessionExtensions.SetObjectAsJson(HttpContext.Session, "cart", list);
-
-            HttpContext.Session.SetInt32("inc", list.Count());
+            List<CartViewModel> groups = helper.GroupedProducts(list);
+            var product = _context.Products.Where(p => p.ID.Equals(id)).First();
+            bool eql = false;
+            if (product.StockCount != 0)
+            {
+                foreach (var item in groups)
+                {
+                    if (item.ItemName.Equals(product.Title))
+                    {
+                        if (item.ItemCount == product.StockCount)
+                        {
+                            eql = true;
+                            break;
+                        }
+                        break;
+                    }
+                }
+                if (!eql)
+                {
+                    list.Add(product);
+                    list.Sort(helper.GetComparerByTitle());
+                    Extensions.SessionExtensions.SetObjectAsJson(HttpContext.Session, "cart", list);
+                    HttpContext.Session.SetInt32("inc", list.Count());
+                }
+            }
             return RedirectToAction("Product", "StoreProduct", new { id });
         }
     }

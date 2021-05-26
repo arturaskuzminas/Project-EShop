@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MyShop.Data;
 using MyShop.Models;
+using MyShop.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,13 +13,15 @@ namespace MyShop.Controllers
     [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
+        private readonly ApplicationDbContext _context;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
+            this._context = context;
         }
 
         public IActionResult Index()
@@ -206,6 +210,58 @@ namespace MyShop.Controllers
 
                 return View("ListUsers");
             }
+        }
+
+        public IActionResult Orders()
+        {
+            List<OrderDetail> myOrderDetails = new List<OrderDetail>();
+            HistoryViewModel history = new HistoryViewModel();
+            var name = HttpContext.User.Identity.Name;
+            history.Order = _context.Orders.ToList();
+            myOrderDetails = _context.OrderDetails.ToList();
+
+            foreach (var item in history.Order)
+            {
+                var tempOrderID = item.OrderID;
+                foreach (var detail in myOrderDetails)
+                {
+                    if (detail.OrderID.Equals(tempOrderID))
+                    {
+                        history.Details.Add(detail);
+                    }
+                }
+            }
+            return View(history);
+        }
+
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var order = _context.Orders.Find(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            return View(order);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, [Bind("Status")] Order order)
+        {
+            if (ModelState.IsValid)
+            {
+                var temp = _context.Orders.Where(o => o.OrderID.Equals(id)).First();
+                temp.Status = order.Status;
+                _context.Update(temp);
+                _context.SaveChanges();
+                return RedirectToAction("Orders");
+            }
+            return View(order);
         }
     }
 }

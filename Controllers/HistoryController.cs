@@ -26,12 +26,15 @@ namespace MyShop.Controllers
 
             foreach (var item in history.Order)
             {
-                var tempOrderID = item.OrderID;
-                foreach (var detail in myOrderDetails)
+                if (item.OrderTotalPrice > 0)
                 {
-                    if (detail.OrderID.Equals(tempOrderID))
+                    var tempOrderID = item.OrderID;
+                    foreach (var detail in myOrderDetails)
                     {
-                        history.Details.Add(detail);
+                        if (detail.OrderID.Equals(tempOrderID))
+                        {
+                            history.Details.Add(detail);
+                        }
                     }
                 }
             }

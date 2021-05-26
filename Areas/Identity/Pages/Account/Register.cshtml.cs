@@ -155,6 +155,8 @@ namespace MyShop.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+            List<CityModel> availableCities = _context.Cities.ToList();
+            Cities = availableCities.Select(x => new SelectListItem() { Value = x.ID, Text = x.Name }).ToList();
             ViewData["roles"] = _roleManager.Roles.ToList();
             // If we got this far, something failed, redisplay form
             return Page();

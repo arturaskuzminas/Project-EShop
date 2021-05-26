@@ -7,7 +7,6 @@
         public decimal ItemTotalPrice { get; set; }
         public string pictureLink { get; set; }
         public decimal ItemPrice { get; set; }
-
         public CartViewModel(string itemName, int itemCount, decimal itemTotalPrice, string pictureLink, decimal itemPrice)
         {
             ItemName = itemName;

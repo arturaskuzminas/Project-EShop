@@ -39,7 +39,7 @@
 else
 {
     <br />
-    <h2>Užsakymų istorija</h2>
+    <h2>Visų naudotojų užsakymų istorija</h2>
     <br />
     <table>
         @foreach (var item in Model.Order)
@@ -82,6 +82,9 @@ else
                 </td>
                 <td>
                     @item.Address
+                </td>
+                <td>
+                    <a asp-controller="Role" asp-action="Edit" asp-route-id="@item.OrderID"><i class="fa fa-refresh"></i></a>
                 </td>
             </tr>
             <tr class="header2">
