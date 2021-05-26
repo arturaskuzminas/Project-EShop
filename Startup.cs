@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyShop.Data;
-using MyShop.Extensions;
 using MyShop.Models;
 using System;
 
@@ -42,8 +40,9 @@ namespace MyShop
             });
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(60);  
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
             });
         }
 

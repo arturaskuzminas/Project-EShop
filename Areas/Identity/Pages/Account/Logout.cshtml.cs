@@ -27,7 +27,7 @@ namespace MyShop.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();
-            foreach(var key in HttpContext.Session.Keys)
+            foreach (var key in HttpContext.Session.Keys)
             {
                 HttpContext.Session.Remove(key);
             }

@@ -36,6 +36,7 @@ else if (SignInManager.IsSignedIn(User))
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/PersonalData" title="Manage">Mano anketa</a>
+            <a class="dropdown-item" asp-controller="History" asp-action="Index">Pirkinių istorija</a>
         </div>
     </li>
 

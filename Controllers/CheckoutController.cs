@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
 using MyShop.Extensions;
 using MyShop.Models;
 using MyShop.ViewModels;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace MyShop.Controllers
 {
@@ -42,6 +41,30 @@ namespace MyShop.Controllers
             HttpContext.Session.SetInt32("inc", collection.Count);
 
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult CheckoutFinal()
+        {
+            var userId = HttpContext.User.Identity.Name;
+            List<ProductModel> list = Extensions.SessionExtensions.GetObjectFromJson<List<ProductModel>>(HttpContext.Session, "cart");
+            List<CartViewModel> groups = helper.GroupedProducts(list);
+            var totalPrice = helper.GetProductsTotalPrice(list);
+            Order order = new Order(1, totalPrice, userId);
+
+            _context.Add(order);
+            _context.SaveChanges();
+            var orderID = _context.Orders.ToList();
+
+            foreach (var item in groups)
+            {
+                OrderDetail detail = new OrderDetail(item.ItemName, item.ItemCount, 
+                                                     item.ItemTotalPrice, item.pictureLink, item.ItemPrice,
+                                                     orderID.Last().OrderID);
+                _context.OrderDetails.Add(detail);
+            }
+            _context.SaveChanges();
+            ViewBag.Message = "Užsakymas atliktas sėkmingai !";
+            return View(_context.Orders);
         }
     }
 }

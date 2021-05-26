@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using MyShop.Models;
+﻿using MyShop.Models;
 using MyShop.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MyShop.Extensions
 {
@@ -19,9 +16,12 @@ namespace MyShop.Extensions
         public decimal GetProductsTotalPrice(List<ProductModel> products)
         {
             decimal price = 0;
-            foreach (var item in products)
+            if (products != null)
             {
-                price += item.Price;
+                foreach (var item in products)
+                {
+                    price += item.Price;
+                }
             }
             return price;
         }
@@ -34,23 +34,31 @@ namespace MyShop.Extensions
 
         public List<CartViewModel> GroupedProducts(List<ProductModel> list)
         {
-            var query = list.GroupBy(product => product.Title).Select(p => new
+            if (list != null)
             {
-                ProductName = p.Key,
-                ProductCount = p.Count(),
-                ProductTotalPrice = p.Select(p => p.Price).Sum(),
-                ProductPicture = p.Select(p => p.PictureLink).First(),
-                ProductPrice = p.Select(p => p.Price).First()
-            }).OrderBy(p => p.ProductName);
+                var query = list.GroupBy(product => product.Title).Select(p => new
+                {
+                    ProductName = p.Key,
+                    ProductCount = p.Count(),
+                    ProductTotalPrice = p.Select(p => p.Price).Sum(),
+                    ProductPicture = p.Select(p => p.PictureLink).First(),
+                    ProductPrice = p.Select(p => p.Price).First()
+                }).OrderBy(p => p.ProductName);
 
-            List<CartViewModel> cartProducts = new List<CartViewModel>();
-            foreach (var item in query)
-            {
-                CartViewModel product = new CartViewModel(item.ProductName, item.ProductCount,
-                                                          item.ProductTotalPrice, item.ProductPicture, item.ProductPrice);
-                cartProducts.Add(product);
+                List<CartViewModel> cartProducts = new List<CartViewModel>();
+                foreach (var item in query)
+                {
+                    CartViewModel product = new CartViewModel(item.ProductName, item.ProductCount,
+                                                              item.ProductTotalPrice, item.ProductPicture, item.ProductPrice);
+                    cartProducts.Add(product);
+                }
+                return cartProducts;
             }
-            return cartProducts;
+            else
+            {
+                var empty = new List<CartViewModel>();
+                return empty;
+            }
         }
     }
 }

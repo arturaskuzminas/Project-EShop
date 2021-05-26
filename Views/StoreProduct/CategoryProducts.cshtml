@@ -35,7 +35,7 @@
             background: #f5f3f0;
             text-decoration: none;
             color: black;
-            font-weight:bold;
+            font-weight: bold;
         }
 
     .dropdown:hover .dropdown__link {
@@ -79,7 +79,14 @@
             <div class="row">
                 <div class="text-center rounded" style="width:220px;height:33px;background:white;margin-left:15px;padding-top:4px;border:1px solid;border-color:#d1cbba">
                     <span class="dropdown__name">
-                        Rikiuoti pagal
+                        @if (ViewBag.SortFieldText == "Rikiuoti pagal")
+                        {
+                            @ViewBag.SortFieldText <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        }
+                        else
+                        {
+                            @ViewBag.SortFieldText
+                        }
                     </span>
                 </div>
                 <div class="dropdown__content rounded">

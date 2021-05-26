@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
 using MyShop.Extensions;
 using MyShop.Models;
-using MyShop.ViewComponents;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -56,11 +55,12 @@ namespace MyShop.Controllers
             else
             {
                 results = results.Where(s => s.Title.ToLowerInvariant().StartsWith(id.ToLowerInvariant()));
-                if(results.Count() == 0)
+                if (results.Count() == 0)
                 {
                     ViewBag.searchStr = "incorrect";
                     return View();
-                } else
+                }
+                else
                 {
                     return View(results);
                 }
@@ -70,9 +70,9 @@ namespace MyShop.Controllers
         [AllowAnonymous]
         // GET: CategoryProducts
         [HttpGet]
-        public async Task<IActionResult> CategoryProducts(string id, int? sort)
+        public IActionResult CategoryProducts(string id, int? sort)
         {
-            IEnumerable<ProductModel> products = await _context.Products.ToListAsync();
+            IEnumerable<ProductModel> products = _context.Products.ToList();
             int categoryID = _context.Categories.Where(n => n.ID == int.Parse(id)).First().ID;
 
             if (sort == null)
@@ -86,10 +86,12 @@ namespace MyShop.Controllers
                 {
                     products = products.Where(pr => pr.CategoryID == categoryID);
                     ViewBag.CategoryName = _context.Categories.Where(n => n.ID == int.Parse(id)).First().Title;
+                    ViewBag.SortFieldText = "Rikiuoti pagal";
                     return View(products);
                 }
             }
-            if ( sort == 1 ) {
+            if (sort == 1)
+            {
                 if (string.IsNullOrEmpty(id))
                 {
                     ViewBag.searchStr = "incorrect";
@@ -99,6 +101,7 @@ namespace MyShop.Controllers
                 {
                     products = products.Where(pr => pr.CategoryID == categoryID);
                     ViewBag.CategoryName = _context.Categories.Where(n => n.ID == int.Parse(id)).First().Title;
+                    ViewBag.SortFieldText = "Pavadinimą (A-Z)";
                     return View(products.OrderBy(p => p.Title));
                 }
             }
@@ -114,6 +117,7 @@ namespace MyShop.Controllers
                 {
                     products = products.Where(pr => pr.CategoryID == categoryID);
                     ViewBag.CategoryName = _context.Categories.Where(n => n.ID == int.Parse(id)).First().Title;
+                    ViewBag.SortFieldText = "Pavadinimą (Z-A)";
                     return View(products.OrderByDescending(p => p.Title));
                 }
             }
@@ -129,6 +133,7 @@ namespace MyShop.Controllers
                 {
                     products = products.Where(pr => pr.CategoryID == categoryID);
                     ViewBag.CategoryName = _context.Categories.Where(n => n.ID == int.Parse(id)).First().Title;
+                    ViewBag.SortFieldText = "Kainą (brangiausi viršuje)";
                     return View(products.OrderByDescending(p => p.Price));
                 }
             }
@@ -144,6 +149,7 @@ namespace MyShop.Controllers
                 {
                     products = products.Where(pr => pr.CategoryID == categoryID);
                     ViewBag.CategoryName = _context.Categories.Where(n => n.ID == int.Parse(id)).First().Title;
+                    ViewBag.SortFieldText = "Kainą (pigiausi viršuje)";
                     return View(products.OrderBy(p => p.Price));
                 }
             }

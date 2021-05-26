@@ -10,10 +10,14 @@ namespace MyShop.Data
             : base(options)
         {
         }
+
         public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<CityModel> Cities { get; set; }
         public DbSet<ProductModel> Products { get; set; }
         public DbSet<CategoryModel> Categories { get; set; }
+        public DbSet<CategoryModel> CategoryModel { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,7 +26,5 @@ namespace MyShop.Data
                 .HasOne(b => b.City)
                 .WithMany();
         }
-
-        public DbSet<MyShop.Models.CategoryModel> CategoryModel { get; set; }
     }
 }

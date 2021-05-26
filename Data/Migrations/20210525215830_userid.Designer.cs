@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyShop.Data;
 
 namespace MyShop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210525215830_userid")]
+    partial class userid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -266,9 +268,6 @@ namespace MyShop.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<decimal>("OrderTotalPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -278,38 +277,6 @@ namespace MyShop.Data.Migrations
                     b.HasKey("OrderID");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("MyShop.Models.OrderDetail", b =>
-                {
-                    b.Property<int>("OrderDetailID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ItemCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ItemName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("ItemPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("ItemTotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("OrderID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("pictureLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("OrderDetailID");
-
-                    b.HasIndex("OrderID");
-
-                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("MyShop.Models.ProductModel", b =>
@@ -442,15 +409,6 @@ namespace MyShop.Data.Migrations
                     b.HasOne("MyShop.Models.CategoryModel", "Parent")
                         .WithMany()
                         .HasForeignKey("ParentID");
-                });
-
-            modelBuilder.Entity("MyShop.Models.OrderDetail", b =>
-                {
-                    b.HasOne("MyShop.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MyShop.Models.ProductModel", b =>

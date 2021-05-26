@@ -43,9 +43,9 @@ namespace MyShop.Controllers
             var womenItems = products.Where(p => p.ForSex.Equals("M") && p.MostWanted == true).ToList();
 
             int i = 0;
-            foreach(var item in menItems)
+            foreach (var item in menItems)
             {
-                if(i < 3)
+                if (i < 3)
                 {
                     collection.Add(item);
                     i++;
@@ -59,7 +59,7 @@ namespace MyShop.Controllers
             int j = 0;
             foreach (var item in womenItems)
             {
-                if(j < 3)
+                if (j < 3)
                 {
                     collection.Add(item);
                     j++;

@@ -10,8 +10,8 @@ using MyShop.Data;
 namespace MyShop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210521185704_CartChanges")]
-    partial class CartChanges
+    [Migration("20210526054916_addedkey")]
+    partial class addedkey
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -223,35 +223,6 @@ namespace MyShop.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("MyShop.Models.Cart", b =>
-                {
-                    b.Property<int>("RecordID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CartId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductsID")
-                        .HasColumnType("int");
-
-                    b.HasKey("RecordID");
-
-                    b.HasIndex("ProductsID");
-
-                    b.ToTable("Carts");
-                });
-
             modelBuilder.Entity("MyShop.Models.CategoryModel", b =>
                 {
                     b.Property<int>("ID")
@@ -290,6 +261,27 @@ namespace MyShop.Data.Migrations
                     b.ToTable("Cities");
                 });
 
+            modelBuilder.Entity("MyShop.Models.Order", b =>
+                {
+                    b.Property<int>("OrderID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("OrderTotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("OrderID");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("MyShop.Models.OrderDetail", b =>
                 {
                     b.Property<int>("OrderDetailID")
@@ -297,48 +289,29 @@ namespace MyShop.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ItemCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ItemName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ItemPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ItemTotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("OrderID")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("pictureLink")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderDetailID");
 
                     b.HasIndex("OrderID");
 
-                    b.HasIndex("ProductID");
-
                     b.ToTable("OrderDetails");
-                });
-
-            modelBuilder.Entity("MyShop.Models.OrderModel", b =>
-                {
-                    b.Property<int>("OrderId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("username")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("OrderId");
-
-                    b.HasIndex("Username");
-
-                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("MyShop.Models.ProductModel", b =>
@@ -466,13 +439,6 @@ namespace MyShop.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MyShop.Models.Cart", b =>
-                {
-                    b.HasOne("MyShop.Models.ProductModel", "Products")
-                        .WithMany()
-                        .HasForeignKey("ProductsID");
-                });
-
             modelBuilder.Entity("MyShop.Models.CategoryModel", b =>
                 {
                     b.HasOne("MyShop.Models.CategoryModel", "Parent")
@@ -482,24 +448,11 @@ namespace MyShop.Data.Migrations
 
             modelBuilder.Entity("MyShop.Models.OrderDetail", b =>
                 {
-                    b.HasOne("MyShop.Models.OrderModel", "Order")
-                        .WithMany("OrderDetails")
+                    b.HasOne("MyShop.Models.Order", "Order")
+                        .WithMany()
                         .HasForeignKey("OrderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("MyShop.Models.ProductModel", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MyShop.Models.OrderModel", b =>
-                {
-                    b.HasOne("MyShop.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("Username");
                 });
 
             modelBuilder.Entity("MyShop.Models.ProductModel", b =>
