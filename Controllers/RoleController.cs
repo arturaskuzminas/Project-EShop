@@ -21,7 +21,7 @@ namespace MyShop.Controllers
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
-            this._context = context;
+            _context = context;
         }
 
         public IActionResult Index()

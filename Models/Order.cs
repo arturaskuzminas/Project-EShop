@@ -20,12 +20,12 @@ namespace MyShop.Models
 
         public Order(int orderId, decimal OrderTotalPrice, string userID, string address)
         {
-            this.OrderID = OrderID;
+            OrderID = OrderID;
             this.OrderTotalPrice = OrderTotalPrice;
-            this.UserID = userID;
-            this.Date = DateTime.Now;
-            this.Status = "Apdorojamas";
-            this.Address = address;
+            UserID = userID;
+            Date = DateTime.Now;
+            Status = "Apdorojamas";
+            Address = address;
         }
     }
 }
